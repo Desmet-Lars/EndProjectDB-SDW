@@ -1,4 +1,4 @@
-import { db } from '../firebaseConfig'; // Adjust the import path based on your project structure
+import { db } from '../../lib/FirebaseConfig'; // Adjust the import path based on your project structure
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
