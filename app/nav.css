@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+/* Header styles */
+header {
+    background-color: #ff520e;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Style the profile picture */
+.pfp-img {
+    width: 32px;
+    /* Set the desired width */
+    height: 32px;
+    /* Set the desired height */
+    border-radius: 50%;
+    /* Make it a circle */
+    object-fit: cover;
+    /* Scale and crop the image to fit */
+    margin-right: 10px;
+    /* Add some spacing to the right */
+}
+
+/* Style the container for the profile picture and text */
+.pfp {
+    margin-left: 10px;
+    display: flex;
+    /* Use flexbox for layout */
+    align-items: center;
+    /* Center items vertically */
+}
+
+/* Style the text next to the profile picture */
+.pfp h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    display: inline-block;
+    /* Ensure the text is on the same line as the image */
+    vertical-align: middle;
+    /* Vertically align the text with the image */
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links li img {
+    color: white;
+    height: 30px;
+    width: 30px;
+}
+
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #dadada;
+    /* Change color on hover */
+}

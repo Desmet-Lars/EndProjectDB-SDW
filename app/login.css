@@ -1,0 +1,83 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./dbsdw-bg.jpg') !important;
+    background-size: cover;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: white;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+
+.login-container .orange-bar {
+    height: 5px;
+    background-color: #ff6600;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.login-container .school-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.login-container form .group {
+    margin-bottom: 20px;
+}
+
+.login-container form label {
+    display: block;
+    font-weight: bold;
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6600;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container form input[type="submit"]:hover {
+    background-color: #e65c00;
+}
+
+.login-container form .forgot-password {
+    margin-left: auto;
+}
+
+.login-container form .forgot-password a {
+    color: #666;
+    text-decoration: none;
+}
+
+.login-container form .forgot-password a:hover {
+    color: #333;
+}

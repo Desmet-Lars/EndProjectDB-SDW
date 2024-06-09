@@ -1,0 +1,123 @@
+/* ak.css */
+
+/* Container styles */
+.ak {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+}
+
+/* Attitude card styles */
+.attitude-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Form styles */
+.container {
+    margin-bottom: 20px;
+}
+
+/* Select styling */
+.select-styling {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Colors dropdown */
+.colors {
+    margin-bottom: 20px;
+}
+
+.color-option-green {
+    color: green;
+}
+
+.color-option-yellow {
+    color: yellow;
+}
+
+.color-option-red {
+    color: red;
+}
+
+/* Student table styles */
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.student-table th, .student-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.student-table th {
+    background-color: #f2f2f2;
+}
+
+/* Checkbox styling */
+/* Checkbox styling */
+.student-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.student-checkbox input[type="checkbox"] {
+    margin: 0 5px 0 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid orangered;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.student-checkbox input[type="checkbox"]:checked {
+    background-color: orangered;
+}
+
+.student-checkbox input[type="checkbox"]:checked::after {
+    content: '\2714';
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    color: white;
+}
+
+
+/* Reason input styling */
+.student-reason {
+    width: 90%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    background-color: orangered;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: orange;
+}
