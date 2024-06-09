@@ -1,9 +1,10 @@
+'use client'
 import React, { useState } from 'react';
-import Nav from "./nav";
-import "../css/ak.css";
-import axios from "axios";
+import Nav from '../nav';
+import axios from 'axios';
+import './ak.css';
 
-function Ak() {
+function Page() {
     const [klas, setKlas] = useState('');
     const [students, setStudents] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
@@ -11,11 +12,13 @@ function Ak() {
     const [studentReasons, setStudentReasons] = useState([]);
 
     const handleKlasChange = async (event) => {
+        console.log('change')
         const selectedKlas = event.target.value;
         setKlas(selectedKlas);
 
         try {
-            const response = await fetch('/attitudekaarten_klas', {
+            console.log('try', selectedKlas)
+            const response = await fetch('/api/attitudekaarten_klas', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,10 +60,9 @@ function Ak() {
         const updatedStudents = [...selectedStudents];
         updatedStudents[index] = !updatedStudents[index];
 
-        // Update reasons array if student is deselected
         const updatedReasons = [...studentReasons];
         if (!updatedStudents[index]) {
-            updatedReasons[index] = { reason: '' }; // Clear reason if student is deselected
+            updatedReasons[index] = { reason: '' };
         }
 
         setSelectedStudents(updatedStudents);
@@ -68,7 +70,7 @@ function Ak() {
     };
 
     const handleReasonChange = (event, index) => {
-        const newReason = event.target.value || 'gedraagt zich slecht'; // Set default reason if empty
+        const newReason = event.target.value || 'gedraagt zich slecht';
         const updatedReasons = [...studentReasons];
         updatedReasons[index] = { reason: newReason };
         setStudentReasons(updatedReasons);
@@ -76,12 +78,10 @@ function Ak() {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Corrected parameter name 'event'
+        event.preventDefault();
 
-        // Filter selected students
         const selectedStudentsData = students.filter((student, index) => selectedStudents[index]);
 
-        // Prepare data for submission
         const formData = selectedStudentsData.map((student, index) => ({
             color: selectedColor,
             reason: studentReasons[students.indexOf(student)]?.reason || 'gedraagt zich slecht',
@@ -92,10 +92,9 @@ function Ak() {
         }));
 
         try {
-            const response = await axios.post('/addCode', formData);
+            const response = await axios.post('/api/addCode', formData);
             console.log('Data sent successfully');
-            console.log(response); // Log the response after the axios request
-            // Reset form state if needed
+            console.log(response);
             setSelectedColor('');
             setSelectedStudents(Array(students.length).fill(false));
             setStudentReasons(Array(students.length).fill({ reason: '' }));
@@ -197,4 +196,4 @@ function Ak() {
     );
 }
 
-export default Ak;
+export default Page;

@@ -1,8 +1,8 @@
 import React from 'react';
-import '../css/dash.css'
-import Nav from "./nav";
+import './dash.css'
+import Nav from "../nav";
 
-const DashboardPage = () => {
+const Page = () => {
 
   return (
       <>
@@ -47,4 +47,4 @@ const DashboardPage = () => {
 
 };
 
-export default DashboardPage;
+export default Page;

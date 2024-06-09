@@ -1,9 +1,14 @@
 'use client'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "./nav.css";
 
-function nav() {
-    const username = sessionStorage.getItem('userId')
+function Nav() {
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const storedUsername = sessionStorage.getItem('userId');
+        setUsername(storedUsername);
+    }, []);
 
     return (
         <header>
@@ -32,4 +37,4 @@ function nav() {
     );
 }
 
-export default nav;
+export default Nav;

@@ -1,10 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import "./login.css";
-import {collection, getDocs, where} from 'firebase/firestore';
-
+import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from './firebaseConfig';
-import {query} from "express";
 
 
 const LoginPage = (props) => {
@@ -17,22 +15,22 @@ const LoginPage = (props) => {
     e.preventDefault();
 
     try {
-      const q = await getDocs(query(collection(db, 'Users'), where('username', '==', username)));
+      const q = await getDocs(query(collection(db, 'Users'), where('name', '==', username)));
       if (!q.empty) {
         // Assuming you want to get the first document found
         const userData = q.docs[0].data();
         // Check if the password matches
-        // @ts-ignore
         if (userData.password === password) {
           // Set user session data or perform authentication logic here
-          // @ts-ignore
-          sessionStorage.setItem('userId', userData.id);
+          sessionStorage.setItem('userId', userData.name);
           // Redirect to the dashboard page
           window.location.href = "/dashboard";
         } else {
+          console.log(username, password)
           setError('Invalid credentials. Please try again.');
         }
       } else {
+        console.log("empty",username, password)
         setError('Invalid credentials. Please try again.');
       }
     } catch (error) {
@@ -54,14 +52,14 @@ const LoginPage = (props) => {
           <form onSubmit={handleLogin}>
             <div className="group">
               <label>Username:</label>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+              <input style={{color:'black'}} type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
             </div>
             <div className="group">
               <label>Password:</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              <input style={{color:'black'}} type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
-            <input type="submit" value="Login"/>
-            {error && <p className="error-message">{error}</p>}
+            <input type="submit" value="Login" onSubmit={handleLogin}/>
+            {error && <p  style={{color:'red'}} className="error-message">{error}</p>}
 
             <div className="forgot-password">
               <a href="/">Forgot password?</a>
