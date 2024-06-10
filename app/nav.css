@@ -16,20 +16,21 @@ a {
 header.navbar {
     background-color: #ff520e;
     color: #fff;
-    padding: 10px 20px;
-    position: fixed;
+    padding: 10px 0px; /* Adjust padding as needed */
+    position: absolute;
     width: 100%;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 20px;
 }
 
 .profile h1 {
