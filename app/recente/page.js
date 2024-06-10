@@ -14,39 +14,29 @@ function Recent() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [username, setUsername] = useState('');
-
-    useEffect(()=>{
-        function decodeToken(token) {
-            if (!token) {
-                console.error('Token not provided');
-                return null;
-            }
-
-            try {
-                const secretKey = jwtConfig.secret_Key;
-                const decoded = jwt.verify(token, secretKey);
-                return decoded.id;
-            } catch (error) {
-                console.error('Error decoding token:', error.message);
-                return null;
-            }
+    function decodeToken(token) {
+        if (!token) {
+            console.error('Token not provided');
+            return null;
         }
 
-        const storedToken = sessionStorage.getItem('userId');
-        if (!storedToken) {
-            console.error('No token found in sessionStorage');
-            setUsername(null);
-        } else {
-            const decodedName = decodeToken(storedToken);
-            setUsername(decodedName);
-            console.log('Decoded username:', decodedName);
+        try {
+            const secretKey = jwtConfig.secret_Key;
+            const decoded = jwt.verify(token, secretKey);
+            return decoded.id;
+        } catch (error) {
+            console.error('Error decoding token:', error.message);
+            return null;
         }
-    })
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', username)));
+                const storedToken = sessionStorage.getItem('userId');
+                const decodedName = decodeToken(storedToken);
+
+                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', decodedName)));
                 const dataArray = response.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
