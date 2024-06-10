@@ -4,9 +4,8 @@
 .ak {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    height: 90vh;
+    height: 90vh; /* Changed from 90vh for flexibility */
     margin: 50px 0 0;
-
 }
 
 /* Attitude card styles */
@@ -19,7 +18,12 @@
     margin: 0 auto;
 }
 
-
+@media (max-width: 768px) {
+    .attitude-card {
+        width: 95%; /* Adjust width for smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+}
 
 /* Select styling */
 .select-styling {
@@ -27,6 +31,8 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    width: 100%; /* Ensure full width on smaller screens */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 /* Colors dropdown */
@@ -34,6 +40,7 @@
     margin-bottom: 20px;
 }
 
+/* Color options */
 .color-option-green {
     color: green;
 }
@@ -51,6 +58,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    font-size: 14px; /* Adjust font size for readability on smaller screens */
 }
 
 .student-table th, .student-table td {
@@ -63,7 +71,13 @@
     background-color: #f2f2f2;
 }
 
-/* Checkbox styling */
+@media (max-width: 768px) {
+    .student-table th, .student-table td {
+        padding: 8px; /* Adjust padding for smaller screens */
+        font-size: 12px; /* Adjust font size for readability */
+    }
+}
+
 /* Checkbox styling */
 .student-checkbox {
     display: flex;
@@ -96,13 +110,13 @@
     color: white;
 }
 
-
 /* Reason input styling */
 .student-reason {
     width: 90%;
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 /* Submit button styling */
@@ -115,8 +129,17 @@ button[type="submit"] {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    width: 100%; /* Full width on smaller screens */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 button[type="submit"]:hover {
     background-color: orange;
+}
+
+@media (max-width: 768px) {
+    button[type="submit"] {
+        font-size: 14px; /* Adjust font size for readability */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
 }
