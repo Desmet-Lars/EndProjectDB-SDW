@@ -1,16 +1,49 @@
 'use client'
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Nav from '../nav';
 import axios from 'axios';
 import './ak.css';
+import jwt from 'jsonwebtoken';
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "../../lib/FirebaseConfig";
+import {jwtConfig} from "../../lib/jwt";
 
 function Page() {
-    const [klas, setKlas] = useState('');
+    const [klas, setKlas] = useState({});
     const [students, setStudents] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [studentReasons, setStudentReasons] = useState([]);
+    const [username, setUsername] = useState('');
 
+    useEffect(() => {
+        // Function to verify and decode the JWT token to retrieve the user's name
+        function decodeToken(token) {
+            if (!token) {
+                console.error('Token not provided');
+                return null;
+            }
+
+            try {
+                const secretKey = jwtConfig.secret_Key; // Get secret key from environment variable
+                const decoded = jwt.verify(token, secretKey);
+                return decoded.id;
+            } catch (error) {
+                console.error('Error decoding token:', error.message);
+                return null;
+            }
+        }
+
+        const storedToken = sessionStorage.getItem('userId');
+        if (!storedToken) {
+            console.error('No token found in sessionStorage');
+            setUsername(null);
+        } else {
+            const decodedName = decodeToken(storedToken);
+            setUsername(decodedName);
+            console.log('Decoded username:', decodedName);
+        }
+    }, []);
     const handleKlasChange = async (event) => {
         console.log('change')
         const selectedKlas = event.target.value;
@@ -18,39 +51,24 @@ function Page() {
 
         try {
             console.log('try', selectedKlas)
-            const response = await fetch('/api/attitudekaarten_klas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ klas: selectedKlas })
+            const userSnapshot = await getDocs(query(collection(db, 'Students'), where('Class', '==', selectedKlas)));
+            const usersData = userSnapshot.docs.map(doc => {
+                const data = doc.data();
+                console.log("data", data);
+                return data; // Return data for each document
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                if (Array.isArray(data)) {
-                    setStudents(data);
-                    setSelectedStudents(Array(data.length).fill(false));
-                    setStudentReasons(Array(data.length).fill({ reason: '' }));
-                } else {
-                    console.error('Expected array but received:', data);
-                    setStudents([]);
-                    setSelectedStudents([]);
-                    setStudentReasons([]);
-                }
-            } else {
-                console.error('Failed to fetch students');
-                setStudents([]);
-                setSelectedStudents([]);
-                setStudentReasons([]);
+            if (Array.isArray(usersData) && usersData.length > 0) {
+                setStudents(usersData); // Set students state with the extracted data
+                console.log(usersData)
+                setSelectedStudents(Array(usersData.length).fill(false));
+                setStudentReasons(Array(usersData.length).fill({ reason: '' }));
             }
-        } catch (error) {
-            console.error('Error:', error);
-            setStudents([]);
-            setSelectedStudents([]);
-            setStudentReasons([]);
+        } catch (e) {
+            console.log(e);
         }
     };
+
 
     const handleColorChange = (event) => {
         setSelectedColor(event.target.value);
@@ -81,17 +99,23 @@ function Page() {
         event.preventDefault();
 
         const selectedStudentsData = students.filter((student, index) => selectedStudents[index]);
-
         const formData = selectedStudentsData.map((student, index) => ({
             color: selectedColor,
             reason: studentReasons[students.indexOf(student)]?.reason || 'gedraagt zich slecht',
-            student: student.name,
-            teacher: sessionStorage.getItem("userId"),
+            student: student.Name,
+            teacher: username,
             klas: klas,
             time: new Date().toISOString()
         }));
+        console.log("formdata", formData)
 
         try {
+            const batch = db.batch();
+            formData.forEach(data => {
+                const docRef = db.collection('Codes').doc();
+                batch.set(docRef, data);
+                console.log("Added form: ", data)
+            });
             const response = await axios.post('/api/addCode', formData);
             console.log('Data sent successfully');
             console.log(response);
@@ -157,10 +181,10 @@ function Page() {
                         </thead>
                         <tbody>
                         {students.map((student, index) => (
-                            <tr key={student.id}>
-                                <td>{student.nr}</td>
-                                <td>{student.klas}</td>
-                                <td>{student.name}</td>
+                            <tr key={index}>
+                                <td>{student.id}</td>
+                                <td>{student.Class}</td>
+                                <td>{student.Name}</td>
                                 <td>
                                     <input
                                         className="student-checkbox"
@@ -184,6 +208,7 @@ function Page() {
                                 </td>
                             </tr>
                         ))}
+
                         </tbody>
                     </table>
 

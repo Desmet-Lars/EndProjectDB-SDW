@@ -1,6 +1,7 @@
 import React from 'react';
 import './dash.css'
 import Nav from "../nav";
+import jwt from 'jsonwebtoken';
 
 const Page = () => {
 

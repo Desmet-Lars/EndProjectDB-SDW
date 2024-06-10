@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import "./login.css";
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from '../lib/FirebaseConfig';
+import jwt from 'jsonwebtoken';
+import { jwtConfig } from '../lib/jwt'
 
 
 const LoginPage = (props) => {
-// Destructure props to get the message
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,20 +17,38 @@ const LoginPage = (props) => {
     try {
       const q = await getDocs(query(collection(db, 'Users'), where('name', '==', username)));
       if (!q.empty) {
-        // Assuming you want to get the first document found
         const userData = q.docs[0].data();
-        // Check if the password matches
         if (userData.password === password) {
-          // Set user session data or perform authentication logic here
-          sessionStorage.setItem('userId', userData.name);
-          // Redirect to the dashboard page
+          function generateToken(name) {
+            console.log('Generating token for:', name);
+
+            const secretKey = jwtConfig.secret_Key;
+            console.log('Using secret key:', secretKey);
+            console.log(typeof secretKey)
+
+            if (!name || typeof name !== 'string') {
+              throw new Error('Invalid name provided');
+            }
+
+            if (!secretKey || typeof secretKey !== 'string') {
+              throw new Error('Invalid secret key provided');
+            }
+            try {
+              const token = jwt.sign({ id: name }, secretKey, { expiresIn: '1h' });
+              console.log('Generated token:', token);
+              return token;
+            } catch (error) {
+              console.error('JWT sign error:', error);
+              throw error;
+            }          }
+          const name = userData.name;
+          const id = generateToken(name)
+          sessionStorage.setItem('userId', id);
           window.location.href = "/dashboard";
         } else {
-          console.log(username, password)
           setError('Invalid credentials. Please try again.');
         }
       } else {
-        console.log("empty",username, password)
         setError('Invalid credentials. Please try again.');
       }
     } catch (error) {
