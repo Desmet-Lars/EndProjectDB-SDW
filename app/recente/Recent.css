@@ -1,15 +1,16 @@
 /* Recent.css */
 
+/* Container styles */
 .recent-container {
     padding: 20px;
-    height: auto;
 }
 
-
+/* Sort options styles */
 .sort-options {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
 }
 
 .sort-options label {
@@ -19,14 +20,19 @@
 }
 
 .sort-options select {
-    padding: 5px 10px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    flex: 1; /* Take remaining space */
+    max-width: 200px; /* Limit width to prevent overflow on smaller screens */
 }
 
+/* Recent items styles */
 .recent-items {
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Gap between grid items */
 }
 
 .recent-item {
@@ -34,7 +40,6 @@
     border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 15px;
-    margin-bottom: 15px;
 }
 
 .item-info {
@@ -42,7 +47,7 @@
 }
 
 .item-info p {
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* Adjust spacing */
 }
 
 .item-info p strong {
@@ -50,7 +55,16 @@
     margin-right: 5px;
 }
 
-.edit{
+.edit {
     color: orangered;
     text-decoration: underline;
+    display: block; /* Ensure edit link takes up full width */
+    margin-top: 10px; /* Add spacing between items */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .recent-items {
+        grid-template-columns: 1fr; /* Display items in a single column on smaller screens */
+    }
 }
