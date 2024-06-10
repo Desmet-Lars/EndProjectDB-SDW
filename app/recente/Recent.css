@@ -1,0 +1,56 @@
+/* Recent.css */
+
+.recent-container {
+    padding: 20px;
+    height: auto;
+}
+
+
+.sort-options {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sort-options label {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.sort-options select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.recent-items {
+    margin-top: 20px;
+}
+
+.recent-item {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.item-info {
+    font-size: 16px;
+}
+
+.item-info p {
+    margin-bottom: 5px;
+}
+
+.item-info p strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.edit{
+    color: orangered;
+    text-decoration: underline;
+}

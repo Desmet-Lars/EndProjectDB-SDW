@@ -4,7 +4,9 @@ import Nav from '../nav';
 import axios from 'axios';
 import './ak.css';
 import jwt from 'jsonwebtoken';
-import {collection, getDocs, query, where} from "firebase/firestore";
+import {collection, addDoc, getDocs, query, where} from "firebase/firestore";
+import { doc, writeBatch } from "firebase/firestore";
+
 import {db} from "../../lib/FirebaseConfig";
 import {jwtConfig} from "../../lib/jwt";
 
@@ -107,26 +109,31 @@ function Page() {
             klas: klas,
             time: new Date().toISOString()
         }));
-        console.log("formdata", formData)
 
         try {
-            const batch = db.batch();
-            formData.forEach(data => {
-                const docRef = db.collection('Codes').doc();
-                batch.set(docRef, data);
-                console.log("Added form: ", data)
-            });
-            const response = await axios.post('/api/addCode', formData);
-            console.log('Data sent successfully');
-            console.log(response);
+            try {
+                for (const data of formData) {
+                    const docRef = await addDoc(collection(db, 'Codes'), data);
+                    console.log("Document written with ID: ", docRef.id);
+                }
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+
+
+            console.log("Batch write succeeded.");
             setSelectedColor('');
             setSelectedStudents(Array(students.length).fill(false));
             setStudentReasons(Array(students.length).fill({ reason: '' }));
-            window.location.href = "/attitudekaarten";
+            //window.location.href = "/attitudekaarten";
         } catch (error) {
             console.error('Error:', error);
+            if (error.response) {
+                console.error('Server Response:', error.response.data);
+            }
         }
     };
+
 
     return (
         <div className="ak">
