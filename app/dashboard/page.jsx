@@ -23,7 +23,7 @@ const Page = () => {
                   />
                   <h1>Attitudekaarten</h1>
               </a>
-              <a className="card" href="/recent">
+              <a className="card" href="/recente">
                   <img
                       src="/img/logo_and_icon_brand_kit_nl/module_iconen/lesfiches_512x512.png"
                       alt="fiets"
