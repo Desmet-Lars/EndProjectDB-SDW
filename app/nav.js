@@ -1,14 +1,33 @@
-'use client'
 import React, { useState, useEffect } from 'react';
-import "./nav.css";
-import jwt from "jsonwebtoken";
-import { jwtConfig } from '../lib/jwt'
+import './nav.css';
+import jwt from 'jsonwebtoken';
+import { jwtConfig } from '../lib/jwt';
 
 function Nav() {
     const [username, setUsername] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        // Function to verify and decode the JWT token to retrieve the user's name
+        if (typeof window !== 'undefined') {
+            const handleResize = () => {
+                setIsMobile(window.innerWidth <= 768);
+            };
+
+            // Initial check
+            setIsMobile(window.innerWidth <= 768);
+
+            // Attach the event listener
+            window.addEventListener('resize', handleResize);
+
+            // Clean up the event listener
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }
+    }, []);
+
+    useEffect(() => {
         function decodeToken(token) {
             if (!token) {
                 console.error('Token not provided');
@@ -16,7 +35,7 @@ function Nav() {
             }
 
             try {
-                const secretKey = jwtConfig.secret_Key; // Get secret key from environment variable
+                const secretKey = jwtConfig.secret_Key;
                 const decoded = jwt.verify(token, secretKey);
                 return decoded.id;
             } catch (error) {
@@ -36,29 +55,29 @@ function Nav() {
         }
     }, []);
 
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
-        <header>
-            <nav>
-                <div className="pfp">
+        <header className="navbar">
+            <div className="container">
+                <div className="profile" onClick={toggleMenu}>
                     <h1>{username}</h1>
                 </div>
+                <div className="nav-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
+                    <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'}`}></i>
+                </div>
+            </div>
+            <nav className={`sidenav ${isOpen ? 'open' : ''}`}>
                 <ul className="nav-links">
-                    <li>
-                        <a href="/dashboard">Dash</a>
-                    </li>
-                    <li>
-                        <a href="/attitudekaarten">AK</a>
-                    </li>
-                    <li>
-                        <a href="/recent">Recent</a>
-                    </li>
-                    <li>
-                        <a href="/logout" className="logout">
-                            Uitloggen
-                        </a>
-                    </li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/attitudekaarten">Attitude Kaarten</a></li>
+                    <li><a href="/recent">Recent</a></li>
+                    <li><a href="/logout" className="logout">Uitloggen</a></li>
                 </ul>
             </nav>
+            {isOpen && <div className="backdrop" onClick={toggleMenu}></div>}
         </header>
     );
 }

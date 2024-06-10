@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import './dash.css'
 import Nav from "../nav";

@@ -4,7 +4,9 @@
 .ak {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    height: 100vh;
+    height: 90vh;
+    margin: 50px 0 0;
+
 }
 
 /* Attitude card styles */
@@ -17,10 +19,7 @@
     margin: 0 auto;
 }
 
-/* Form styles */
-.container {
-    margin-bottom: 20px;
-}
+
 
 /* Select styling */
 .select-styling {
