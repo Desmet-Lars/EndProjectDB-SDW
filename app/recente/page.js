@@ -5,17 +5,48 @@ import './Recent.css'; // Make sure this path is correct
 import Nav from "../nav";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {db} from "../../lib/FirebaseConfig";
+import {jwtConfig} from "../../lib/jwt";
+import jwt from "jsonwebtoken";
 
 function Recent() {
     const [recentData, setRecentData] = useState([]);
     const [sortCriteria, setSortCriteria] = useState('date');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [username, setUsername] = useState('');
+
+    useEffect(()=>{
+        function decodeToken(token) {
+            if (!token) {
+                console.error('Token not provided');
+                return null;
+            }
+
+            try {
+                const secretKey = jwtConfig.secret_Key;
+                const decoded = jwt.verify(token, secretKey);
+                return decoded.id;
+            } catch (error) {
+                console.error('Error decoding token:', error.message);
+                return null;
+            }
+        }
+
+        const storedToken = sessionStorage.getItem('userId');
+        if (!storedToken) {
+            console.error('No token found in sessionStorage');
+            setUsername(null);
+        } else {
+            const decodedName = decodeToken(storedToken);
+            setUsername(decodedName);
+            console.log('Decoded username:', decodedName);
+        }
+    })
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', 'Lars Desmet')));
+                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', username)));
                 const dataArray = response.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
