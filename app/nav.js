@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './nav.css';
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from '../lib/jwt';
-import { Logout } from './logout/page'; // Make sure to import the Logout component
+import { Logout } from './logout/api_logout'; // Make sure to import the Logout component
 
 function Nav() {
     const [username, setUsername] = useState('');
