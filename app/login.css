@@ -1,3 +1,4 @@
+/* login.css */
 html, body {
     height: 100%;
     margin: 0;
@@ -21,7 +22,6 @@ html, body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
-
 
 .login-container .orange-bar {
     height: 5px;
@@ -54,8 +54,8 @@ html, body {
     border-radius: 5px;
 }
 
-.login-container form input[type="submit"] {
-    width: 100%;
+.login-container form button[type="submit"] {
+    width: 102%;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -63,21 +63,14 @@ html, body {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
-.login-container form input[type="submit"]:hover {
+.login-container form button[type="submit"]:hover {
     background-color: #e65c00;
 }
 
-.login-container form .forgot-password {
-    margin-left: auto;
-}
-
-.login-container form .forgot-password a {
-    color: #666;
-    text-decoration: none;
-}
-
-.login-container form .forgot-password a:hover {
-    color: #333;
+.login-container form .error-message {
+    color: red;
+    margin-top: 10px;
 }
