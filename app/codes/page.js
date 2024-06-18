@@ -89,7 +89,7 @@ function Codes() {
         <div>
             <Nav />
             <div className="recent-container">
-                <h2>Recente Data</h2>
+                <h2>Alle codes</h2>
                 <div className="class-items">
                     {classData.length > 0 ? (
                         classData.map((cls, classIndex) => (
