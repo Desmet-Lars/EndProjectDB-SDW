@@ -1,0 +1,93 @@
+/* Codes.css */
+
+/* Container styles */
+.recent-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Class item styles */
+.class-item {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.class-item h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.class-item.expanded {
+    background-color: #e0e0e0;
+}
+
+/* Student item styles */
+.student-item {
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.student-item h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.student-item.expanded {
+    background-color: #f5f5f5;
+}
+
+/* Code grid styles */
+.code-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust grid layout as per requirements */
+    gap: 15px;
+}
+
+.code-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.code-item .item-info {
+    font-size: 14px;
+}
+
+.code-item .item-info p {
+    margin: 5px 0;
+}
+
+.code-item .item-info p strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.edit {
+    color: black;
+    text-decoration: underline;
+    display: block; /* Ensure edit link takes up full width */
+    margin-top: 10px; /* Add spacing between items */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .class-item {
+        margin-bottom: 10px;
+    }
+
+    .code-grid {
+        grid-template-columns: 1fr; /* Display items in a single column on smaller screens */
+    }
+}

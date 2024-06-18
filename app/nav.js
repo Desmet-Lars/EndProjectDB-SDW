@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './nav.css';
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from '../lib/jwt';
-import { Logout } from './logout/api_logout'; // Make sure to import the Logout component
+import { Logout } from './logout/api_logout'; // Corrected import path and component name
 
 function Nav() {
     const [username, setUsername] = useState('');
@@ -75,7 +75,10 @@ function Nav() {
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/attitudekaarten">Attitude Kaarten</a></li>
                     <li><a href="/recente">Recente</a></li>
-                    <Logout />
+                    <li><a href="/codes">Alle codes</a></li>
+                </ul>
+                <ul className="nav-links">
+                    <Logout /> {/* Render the Logout component directly in the nav-links */}
                 </ul>
             </nav>
 

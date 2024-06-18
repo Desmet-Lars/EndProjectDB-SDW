@@ -17,7 +17,21 @@ function Page() {
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [studentReasons, setStudentReasons] = useState([]);
     const [username, setUsername] = useState('');
+    useEffect(() => {
+        const token = sessionStorage.getItem('userId');
 
+        if (!token) {
+            window.location.href="/"
+        } else {
+            try {
+                const secretKey = jwtConfig.secret_Key;
+                jwt.verify(token, secretKey); // Replace 'your-secret-key' with your actual secret key
+            } catch (error) {
+                console.error('Invalid token', error);
+                window.location.href="/attitudekaarten"
+            }
+        }
+    }, []);
     useEffect(() => {
         // Function to verify and decode the JWT token to retrieve the user's name
         function decodeToken(token) {
@@ -113,7 +127,7 @@ function Page() {
         try {
             try {
                 for (const data of formData) {
-                    const docRef = await addDoc(collection(db, 'Codes'), data);
+                    const docRef = await addDoc(collection(db, 'codes'), data);
                     console.log("Document written with ID: ", docRef.id);
                 }
             } catch (error) {

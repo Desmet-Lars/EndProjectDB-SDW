@@ -14,6 +14,21 @@ function Recent() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [username, setUsername] = useState('');
+    useEffect(() => {
+        const token = sessionStorage.getItem('userId');
+
+        if (!token) {
+            window.location.href="/"
+        } else {
+            try {
+                const secretKey = jwtConfig.secret_Key;
+                jwt.verify(token, secretKey); // Replace 'your-secret-key' with your actual secret key
+            } catch (error) {
+                console.error('Invalid token', error);
+                window.location.href="/recente"
+            }
+        }
+    }, []);
     function decodeToken(token) {
         if (!token) {
             console.error('Token not provided');
@@ -36,7 +51,7 @@ function Recent() {
                 const storedToken = sessionStorage.getItem('userId');
                 const decodedName = decodeToken(storedToken);
 
-                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', decodedName)));
+                const response = await getDocs(query(collection(db, 'codes'), where('teacher', '==', decodedName)));
                 const dataArray = response.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
