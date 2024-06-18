@@ -28,22 +28,25 @@ header.navbar {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: normal;
+    align-items: end;
     max-width: 1200px;
     margin: 0 20px;
 }
 
 .profile h1 {
-    margin: 0;
+    margin: 0 0 0 20px;
     font-size: 1.25rem;
     font-weight: 600;
 }
 
 .nav-toggle {
-    display: none;
+    /* Displaying block ensures it's always visible */
+    display: block;
     cursor: pointer;
     font-size: 1.5rem;
+    padding: 10px;
+    margin-top: 10px; /* Adjust spacing as needed */
 }
 
 .sidenav {
@@ -86,8 +89,9 @@ header.navbar {
 .nav-links a:hover {
     color: #ffdab9;
 }
-.logout{
-    margin-top: 100%;
+
+.logout {
+    margin-top: auto; /* Pushes logout link to bottom */
 }
 
 .logout a {
@@ -116,12 +120,12 @@ header.navbar {
 }
 
 /* Media query for mobile */
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 769px) {
     .nav-toggle {
-        display: block;
+        display: none; /* Hide nav-toggle on larger screens */
     }
 
     .sidenav {
-        width: 200px; /* Adjust width for smaller screens */
+        width: 250px; /* Adjust width for larger screens if needed */
     }
 }
