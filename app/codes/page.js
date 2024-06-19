@@ -35,6 +35,7 @@ function Codes() {
         const fetchData = async () => {
             try {
                 const classResponse = await getDocs(collection(db, 'Klassen'));
+                console.log(classResponse);
                 const classIds = classResponse.docs.map(doc => doc.id);
 
                 const data = await Promise.all(classIds.map(async (classId) => {

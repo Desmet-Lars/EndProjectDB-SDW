@@ -108,7 +108,7 @@ const EditCode = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Uur/Datum:</label>
-                    <input type="datetime-local" name="time" value={formData.time} onChange={handleChange} required />
+                    <input disabled type="datetime-local" name="time" value={formData.time} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label>Leerkracht:</label>
