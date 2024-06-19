@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import './Codes.css'; // Make sure this path is correct
-import Nav from "../nav";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../lib/FirebaseConfig";
 import { jwtConfig } from "../../lib/jwt";
@@ -25,7 +24,7 @@ function Codes() {
                 jwt.verify(token, secretKey);
             } catch (error) {
                 console.error('Invalid token', error);
-                window.location.href = "/";
+                window.location.href = "/codes";
             }
         }
     }, []);
@@ -87,7 +86,6 @@ function Codes() {
 
     return (
         <div>
-            <Nav />
             <div className="recent-container">
                 <h2>Alle codes</h2>
                 <div className="class-items">
@@ -116,10 +114,10 @@ function Codes() {
                                                         <div key={codeIndex} className="code-item" style={{ backgroundColor: code.color }}>
                                                             <div className="item-info">
                                                                 <p><strong>Uur/datum:</strong> {new Date(code.time).toLocaleString()}</p>
-                                                                <hr />
+                                                                {code.lastEdited && <p>(laatst aangepast: {new Date(code.lastEdited).toLocaleString()})</p>}                                                                <hr />
                                                                 <p><strong>Leerkracht: </strong>{code.teacher}</p>
                                                                 <p><strong>Reden: </strong>{code.reason}</p>
-                                                                <a className='edit' href={"/edit/doc/" + code.id}>Edit</a>
+                                                                <a className='edit' href={"/codes/edit/" + code.id}>Edit</a>
                                                             </div>
                                                         </div>
                                                     ))}

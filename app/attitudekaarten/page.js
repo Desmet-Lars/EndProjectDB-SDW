@@ -1,11 +1,8 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import Nav from '../nav';
-import axios from 'axios';
 import './ak.css';
 import jwt from 'jsonwebtoken';
 import {collection, addDoc, getDocs, query, where} from "firebase/firestore";
-import { doc, writeBatch } from "firebase/firestore";
 
 import {db} from "../../lib/FirebaseConfig";
 import {jwtConfig} from "../../lib/jwt";
@@ -127,7 +124,7 @@ function Page() {
         try {
             try {
                 for (const data of formData) {
-                    const docRef = await addDoc(collection(db, 'codes'), data);
+                    const docRef = await addDoc(collection(db, 'Codes'), data);
                     console.log("Document written with ID: ", docRef.id);
                 }
             } catch (error) {
@@ -151,7 +148,6 @@ function Page() {
 
     return (
         <div className="ak">
-            <Nav />
             <div className="attitude-card">
                 <div className="container">
                     <form onSubmit={(e) => e.preventDefault()}>
@@ -163,6 +159,7 @@ function Page() {
                                 value={klas}
                                 onChange={handleKlasChange}
                                 className="select-styling"
+                                required
                             >
                                 <option value="">Selecteer Klas</option>
                                 <option value="6TI-ICT">6TI-ICT</option>
@@ -182,6 +179,7 @@ function Page() {
                             value={selectedColor}
                             onChange={handleColorChange}
                             className="select-styling"
+                            required
                         >
                             <option value="" disabled hidden>Selecteer Code</option>
                             <option value="green" className="color-option-green">Groen</option>

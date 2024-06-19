@@ -1,0 +1,43 @@
+/* app/codes/edit/[id]/EditCode.css */
+.edit-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 50px auto auto;
+    background-color: #eaeaea;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.form-group input[type="color"] {
+    padding: 0;
+    height: 40px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: orangered;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: orange;
+}

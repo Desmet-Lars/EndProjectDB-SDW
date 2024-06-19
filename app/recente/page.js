@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Recent.css'; // Make sure this path is correct
-import Nav from "../nav";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {db} from "../../lib/FirebaseConfig";
 import {jwtConfig} from "../../lib/jwt";
@@ -51,7 +50,7 @@ function Recent() {
                 const storedToken = sessionStorage.getItem('userId');
                 const decodedName = decodeToken(storedToken);
 
-                const response = await getDocs(query(collection(db, 'codes'), where('teacher', '==', decodedName)));
+                const response = await getDocs(query(collection(db, 'Codes'), where('teacher', '==', decodedName)));
                 const dataArray = response.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
@@ -93,7 +92,6 @@ function Recent() {
 
     return (
         <div>
-            <Nav />
             <div className="recent-container">
                 <h2>Recente Data</h2>
                 <div className="sort-options">
@@ -114,7 +112,7 @@ function Recent() {
                                     <hr/>
                                     <p><strong>Leerling: </strong>{item.student}</p>
                                     <p><strong>Reden: </strong>{item.reason}</p>
-                                    <a className='edit' href={"/edit/doc/" + item.id}>Edit</a>
+                                    <a className='edit' href={"/codes/edit/" + item.id}>Edit</a>
                                 </div>
                             </div>
                         ))

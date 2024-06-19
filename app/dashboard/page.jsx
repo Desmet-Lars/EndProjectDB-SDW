@@ -1,7 +1,6 @@
 'use client'
 import React, {useEffect} from 'react';
 import './dash.css'
-import Nav from "../nav";
 import jwt from 'jsonwebtoken';
 import {jwtConfig} from "../../lib/jwt";
 
@@ -25,7 +24,6 @@ const Page = () => {
 
   return (
       <>
-          <Nav />
 
           <div className={"dashBody"}>
           <div className="card-container">
