@@ -133,7 +133,7 @@ const EditCode = () => {
                         <option value="red" className="color-option-red">Rood</option>
                     </select>
                 </div>
-                <button type="submit">Save Changes</button>
+                <button type="submit">Verstuur</button>
             </form>
         </div>
     );

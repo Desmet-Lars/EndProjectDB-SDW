@@ -57,7 +57,7 @@
 }
 
 .edit {
-    color: orangered;
+    color: black;
     text-decoration: underline;
     display: block; /* Ensure edit link takes up full width */
     margin-top: 10px; /* Add spacing between items */

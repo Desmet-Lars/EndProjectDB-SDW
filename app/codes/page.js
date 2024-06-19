@@ -29,8 +29,6 @@ function Codes() {
         }
     }, []);
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -51,6 +49,16 @@ function Codes() {
                             id: doc.id,
                             ...doc.data()
                         }));
+
+                        codes.sort((a, b) => {
+                            const dateA = new Date(a.time);
+                            const dateB = new Date(b.time);
+                            console.log(dateB-dateA)
+                            return dateB - dateA;
+                        });
+
+                        console.log("codes",codes);
+
                         return { ...student, codes };
                     }));
 
@@ -102,7 +110,7 @@ function Codes() {
                                     cls.students.map((student, studentIndex) => (
                                         <div
                                             key={studentIndex}
-                                            className={`student-item ${expandedStudents[student.Name] ? 'expanded' : ''}`}
+                                            className={`student-item ${expandedStudents[student.id] ? 'expanded' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation(); // Prevent class toggle
                                                 toggleStudentExpand(student.id);
@@ -124,17 +132,17 @@ function Codes() {
                                                     ))}
                                                 </div>
                                             ) : (
-                                                expandedStudents[student.id] && <p>No codes available for this student</p>
+                                                expandedStudents[student.id] && <p>Geen codes voor deze leerling</p>
                                             )}
                                         </div>
                                     ))
                                 ) : (
-                                    expandedClasses[cls.id] && <p>No students available in this class</p>
+                                    expandedClasses[cls.id] && <p>Geen leerlingen in deze klas</p>
                                 )}
                             </div>
                         ))
                     ) : (
-                        <p>No class data available</p>
+                        <p>Geen klassen</p>
                     )}
                 </div>
             </div>

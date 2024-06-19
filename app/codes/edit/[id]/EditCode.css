@@ -31,6 +31,7 @@
 
 button {
     padding: 10px 15px;
+    border-radius: 10px;
     background-color: orangered;
     color: white;
     border: none;

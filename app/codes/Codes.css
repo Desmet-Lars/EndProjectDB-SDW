@@ -3,7 +3,8 @@
 /* Container styles */
 .recent-container {
     padding: 20px;
-    margin-top: 20px;
+    width: 60%;
+    margin: 20px auto;
 }
 
 /* Class item styles */
@@ -50,7 +51,7 @@
 /* Code grid styles */
 .code-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust grid layout as per requirements */
+    grid-template-columns: repeat(1, minmax(300px, 1fr)); /* Adjust grid layout as per requirements */
     gap: 15px;
 }
 
@@ -83,6 +84,12 @@
 
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
+    .recent-container {
+        padding: 20px;
+        width: 80%;
+        margin: 20px auto;
+    }
+
     .class-item {
         margin-bottom: 10px;
     }
