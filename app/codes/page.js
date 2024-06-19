@@ -53,11 +53,10 @@ function Codes() {
                         codes.sort((a, b) => {
                             const dateA = new Date(a.time);
                             const dateB = new Date(b.time);
-                            console.log(dateB-dateA)
                             return dateB - dateA;
                         });
 
-                        console.log("codes",codes);
+                        console.log("codes", codes);
 
                         return { ...student, codes };
                     }));
@@ -83,10 +82,10 @@ function Codes() {
         }));
     };
 
-    const toggleStudentExpand = (studentId) => {
+    const toggleStudentExpand = (studentName) => {
         setExpandedStudents(prev => ({
             ...prev,
-            [studentId]: !prev[studentId]
+            [studentName]: !prev[studentName]
         }));
     };
 
@@ -110,20 +109,21 @@ function Codes() {
                                     cls.students.map((student, studentIndex) => (
                                         <div
                                             key={studentIndex}
-                                            className={`student-item ${expandedStudents[student.id] ? 'expanded' : ''}`}
+                                            className={`student-item ${expandedStudents[student.Name] ? 'expanded' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation(); // Prevent class toggle
-                                                toggleStudentExpand(student.id);
+                                                toggleStudentExpand(student.Name);
                                             }}
                                         >
                                             <h4>{student.Name}</h4>
-                                            {expandedStudents[student.id] && student.codes.length > 0 ? (
+                                            {expandedStudents[student.Name] && student.codes.length > 0 ? (
                                                 <div className="code-grid">
                                                     {student.codes.map((code, codeIndex) => (
                                                         <div key={codeIndex} className="code-item" style={{ backgroundColor: code.color }}>
                                                             <div className="item-info">
                                                                 <p><strong>Uur/datum:</strong> {new Date(code.time).toLocaleString()}</p>
-                                                                {code.lastEdited && <p>(laatst aangepast: {new Date(code.lastEdited).toLocaleString()})</p>}                                                                <hr />
+                                                                {code.lastEdited && <p>(laatst aangepast: {new Date(code.lastEdited).toLocaleString()})</p>}
+                                                                <hr />
                                                                 <p><strong>Leerkracht: </strong>{code.teacher}</p>
                                                                 <p><strong>Reden: </strong>{code.reason}</p>
                                                                 <a className='edit' href={"/codes/edit/" + code.id}>Edit</a>
@@ -132,7 +132,7 @@ function Codes() {
                                                     ))}
                                                 </div>
                                             ) : (
-                                                expandedStudents[student.id] && <p>Geen codes voor deze leerling</p>
+                                                expandedStudents[student.Name] && <p>Geen codes voor deze leerling</p>
                                             )}
                                         </div>
                                     ))
