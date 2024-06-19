@@ -19,7 +19,8 @@ const EditCode = () => {
         teacher: '',
         reason: '',
         color: '',
-        lastEdited: ''
+        lastEdited: '',
+        student: ''
     });
     const [selectedColor, setSelectedColor] = useState('');
 
@@ -45,10 +46,10 @@ const EditCode = () => {
                 try {
                     const codeDoc = await getDoc(doc(db, 'Codes', id));
                     if (codeDoc.exists()) {
-                        const { time, teacher, reason, color, lastEdited } = codeDoc.data();
+                        const { time, teacher, student, reason, color, lastEdited } = codeDoc.data();
                         // Remove milliseconds and format as 'yyyy-MM-ddTHH:mm'
                         const formattedTime = new Date(time).toISOString().slice(0, 16);
-                        setFormData({ time: formattedTime, teacher, reason, color, lastEdited });
+                        setFormData({ time: formattedTime, teacher, student, reason, color, lastEdited });
                         setSelectedColor(color); // Set selectedColor based on retrieved data
                     } else {
                         setError('Code not found');
@@ -108,15 +109,20 @@ const EditCode = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Uur/Datum:</label>
-                    <input disabled type="datetime-local" name="time" value={formData.time} onChange={handleChange} required />
+                    <input disabled type="datetime-local" name="time" value={formData.time} onChange={handleChange}
+                           required/>
                 </div>
                 <div className="form-group">
                     <label>Leerkracht:</label>
-                    <input type="text" name="teacher" value={formData.teacher} onChange={handleChange} required />
+                    <input type="text" name="teacher" value={formData.teacher} onChange={handleChange} required/>
+                </div>
+                <div className="form-group">
+                    <label>Leerling:</label>
+                    <input name="student" type="text" value={formData.student} onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
                     <label>Reden:</label>
-                    <textarea name="reason" value={formData.reason} onChange={handleChange} required />
+                    <textarea name="reason" value={formData.reason} onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
                     <label>Kleur:</label>
